@@ -1,0 +1,32 @@
+from pydantic import BaseModel, EmailStr
+from typing import Optional, List
+from models.events import Event
+
+class User(BaseModel):
+    email: EmailStr
+    password: str
+    events: Optional[list[Event]] = None
+
+    class Config:
+        json_schema_extra = {
+        "example": {
+        "email": "fastapi@packt.com",
+        "username": "strong!!!",
+        "events": [],
+            }
+        }
+
+class NewUser(User):
+    username: str
+
+class UserSignIn(BaseModel):
+    email: EmailStr
+    password: str
+
+    class Config:
+        json_schema_extra = {
+        "example": {
+        "email": "fastapi@packt.com",
+        "username": "strong!!!",
+            }
+        }
