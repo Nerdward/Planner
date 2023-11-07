@@ -20,14 +20,6 @@ class User(Document):
                 }
         }
 
-class UserSignIn(BaseModel):
-    email: EmailStr
-    password: str
-
-    class Config:
-        json_schema_extra = {
-        "example": {
-        "email": "fastapi@packt.com",
-        "username": "strong!!!",
-            }
-        }
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
