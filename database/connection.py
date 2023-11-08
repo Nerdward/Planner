@@ -20,6 +20,16 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
 
+class TestSettings(Settings):
+    TEST_DATABASE_URL: Optional[str] = None
+
+    async def initialize_database(self):
+        client = AsyncIOMotorClient(self.TEST_DATABASE_URL)
+        await init_beanie(
+            database=client.get_database(),
+            document_models=[Event, User]
+        )
+        
 class Database:
     def __init__(self, model: Document) -> None:
         self.model = model
